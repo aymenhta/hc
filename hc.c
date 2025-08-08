@@ -10,7 +10,7 @@ void panic(const char* err)
   {
     perror(err);
   }
-  exit(1);
+  exit(EXIT_FAILURE);
 }
 
 
@@ -43,6 +43,14 @@ void handle_file(const char* file_path)
   fclose(f);
 }
 
+void handle_stdin()
+{
+  int c = fgetc(stdin);
+  while(feof(stdin) == 0 && c != 0) {
+    printf("%c", c);
+    c = fgetc(stdin);
+  }
+}
 
 void print_usage()
 {
@@ -52,28 +60,23 @@ void print_usage()
   printf("OPTIONS\n");
   printf("\t-h, --help: print the application usage\n");
   printf("\tf: the file's path\n");
-  exit(0);
+  exit(EXIT_SUCCESS);
 }
 
-// TODO: add support for piping
 // TODO: add support for pattern matching
 int main(int argc, char **argv)
 {
-  if (argc == 1) print_usage();
-  if (argc == 2)
+  if (argc == 1) handle_stdin();
+  if (argc == 2 && (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0))
   {
-    if (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0)
-    {
       print_usage();
-    }
   }
+
   // loop through files and display their content to stdout
   for (int i = 1; i < argc; i++)
   {
-    printf("----------------------------------------------------------------\n");
-    printf("Handling file: %s\n", argv[i]);
-    printf("----------------------------------------------------------------\n");
     handle_file(argv[i]); 
   }
-  return 0;
+
+  return EXIT_SUCCESS;
 }
