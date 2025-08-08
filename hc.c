@@ -34,10 +34,13 @@ void handle_file(const char* file_path)
 
   // print content to stdout
   int c = fgetc(f);
-  while (feof(f) == 0) {
+  while (feof(f) == 0)
+  {
     printf("%c", c);
     c = fgetc(f);
   }
+
+  if (ferror(f) != 0) panic("error occured while reading file...");  
 
   // close file
   fclose(f);
@@ -46,7 +49,8 @@ void handle_file(const char* file_path)
 void handle_stdin()
 {
   int c = fgetc(stdin);
-  while(feof(stdin) == 0 && c != 0) {
+  while(feof(stdin) == 0)
+  {
     printf("%c", c);
     c = fgetc(stdin);
   }
