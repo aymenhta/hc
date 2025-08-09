@@ -58,12 +58,14 @@ void handle_stdin()
 
 void print_usage()
 {
-  printf("print the content of some file\n\n");
-  printf("USAGE:\n");
-  printf("\tcat [OPTION]\n");
-  printf("OPTIONS\n");
+  printf("Concatenate FILE(s) to standard output.\n\n");
+  printf("USAGE: hc [OPTION]... [FILE]...\n");
+  printf("With no FILE, or when FILE is -, read standard input.\n\n");
+  printf("Options:\n");
   printf("\t-h, --help: print the application usage\n");
-  printf("\tf: the file's path\n");
+  printf("Examples:\n");
+  printf("\thc f - g  Output f's contents, then standard input, then g's contents.\n");
+  printf("\thc        Copy standard input to standard output.\n");
   exit(EXIT_SUCCESS);
 }
 
@@ -79,6 +81,10 @@ int main(int argc, char **argv)
   // loop through files and display their content to stdout
   for (int i = 1; i < argc; i++)
   {
+    if (strcmp(argv[i], "-") == 0) {
+      handle_stdin();
+      continue;
+    }
     handle_file(argv[i]); 
   }
 
