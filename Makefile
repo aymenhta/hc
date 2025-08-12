@@ -1,6 +1,6 @@
 .PHONY: run
 run:
-	@./bin/hc 
+	@./bin/hc file* *.c 
 
 .PHONY: build
 build:
