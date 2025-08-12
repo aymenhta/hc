@@ -41,7 +41,9 @@ void print_usage()
   printf("Options:\n");
   printf("\t-h, --help: print the application usage\n");
   printf("Examples:\n");
-  printf("\thc f - g  Output f's contents, then standard input, then g's contents.\n");
-  printf("\thc        Copy standard input to standard output.\n");
+
+	printf("\thc f - g         Output f's contents, then standard input, then g's contents.\n");
+  printf("\thc file*.txt     Output the content of all the files that match the pattern `file*.txt`.\n");
+	printf("\thc               Copy standard input to standard output.\n");
   exit(EXIT_SUCCESS);
 }
